@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marley</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa: #e8b4bc;
+            --rosa-oscuro: #d48a95;
+            --blanco: #ffffff;
+            --negro: #2c2c2c;
+            --gris: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            color: var(--negro);
+            background-color: var(--blanco);
+            overflow-x: hidden;
+        }
+        
+        /* Header y Navegación */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.6s;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        header.sticky {
+            padding: 15px 100px;
+            background: var(--blanco);
+        }
+        
+        header .logo {
+            color: var(--rosa-oscuro);
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        
+        header ul {
+            position: relative;
+            display: flex;
+        }
+        
+        header ul li {
+            list-style: none;
+            position: relative;
+        }
+        
+        header ul li a {
+            position: relative;
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--negro);
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: 0.6s;
+            font-size: 1rem;
+        }
+        
+        header ul li a:hover {
+            color: var(--rosa-oscuro);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        /* Secciones generales */
+        section {
+            padding: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .section-title {
+            position: relative;
+            color: var(--negro);
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            position: absolute;
+            content: '';
+            left: 50%;
+            bottom: -15px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--rosa);
+        }
+        
+        /* Inicio/Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-content {
+            position: relative;
+            text-align: center;
+            max-width: 800px;
+            z-index: 1;
+        }
+        
+        .hero-content h2 {
+            color: var(--blanco);
+            font-size: 4em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero-content p {
+            color: var(--blanco);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: var(--rosa);
+            color: var(--blanco);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--rosa);
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--rosa);
+        }
+        
+        /* Nosotros */
+        .about {
+            background-color: var(--gris);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .about-img {
+            position: relative;
+            width: 45%;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            width: 45%;
+        }
+        
+        .about-text h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--rosa-oscuro);
+        }
+        
+        .about-text p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        /* Servicios */
+        .services {
+            background-color: var(--blanco);
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-box {
+            background: var(--gris);
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            background: var(--rosa);
+            color: var(--blanco);
+        }
+        
+        .service-box i {
+            font-size: 50px;
+            color: var(--rosa-oscuro);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        
+        .service-box:hover i {
+            color: var(--blanco);
+        }
+        
+        .service-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .service-box p {
+            line-height: 1.8;
+        }
+        
+        /* Promociones */
+        .promotions {
+            background-color: var(--gris);
+        }
+        
+        .promo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .promo-card {
+            position: relative;
+            background: var(--blanco);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        
+        .promo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .promo-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .promo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        
+        .promo-card:hover .promo-img img {
+            transform: scale(1.1);
+        }
+        
+        .promo-content {
+            padding: 20px;
+        }
+        
+        .promo-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--rosa-oscuro);
+        }
+        
+        .promo-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .promo-price {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--rosa-oscuro);
+        }
+        
+        .promo-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--rosa);
+            color: var(--blanco);
+            padding: 5px 30px;
+            font-size: 0.9em;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Destacados */
+        .featured {
+            background-color: var(--blanco);
+        }
+        
+        .featured-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .featured-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        
+        .featured-card:hover .featured-img img {
+            transform: scale(1.1);
+        }
+        
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--blanco);
+        }
+        
+        .featured-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        /* Galería */
+        .gallery {
+            background-color: var(--gris);
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 180, 188, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay i {
+            color: var(--blanco);
+            font-size: 2em;
+        }
+        
+        /* Testimonios */
+        .testimonials {
+            background-color: var(--blanco);
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: var(--gris);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h3 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-info span {
+            color: var(--rosa-oscuro);
+            font-size: 0.9em;
+        }
+        
+        .testimonial-content p {
+            line-height: 1.8;
+            font-style: italic;
+        }
+        
+        .testimonial-rating {
+            margin-top: 15px;
+            color: #ffc107;
+        }
+        
+        /* Contacto */
+        .contact {
+            background-color: var(--gris);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-info-box {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            min-width: 50px;
+            height: 50px;
+            background: var(--rosa);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .contact-details h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .contact-details p {
+            color: #666;
+        }
+        
+        .contact-form {
+            background: var(--blanco);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: var(--rosa-oscuro);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            background: var(--gris);
+            border-radius: 5px;
+            font-size: 1em;
+            outline: none;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .form-control:focus {
+            border-color: var(--rosa);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: none;
+        }
+        
+        .form-btn {
+            padding: 12px 35px;
+            background: var(--rosa);
+            color: var(--blanco);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid var(--rosa);
+        }
+        
+        .form-btn:hover {
+            background: transparent;
+            color: var(--rosa);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--negro);
+            color: var(--blanco);
+            padding: 50px 100px 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-box h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-box h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--rosa);
+        }
+        
+        .footer-box p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .footer-social {
+            display: flex;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--rosa);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: var(--blanco);
+            color: var(--rosa);
+        }
+        
+        .footer-links li {
+            list-style: none;
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--rosa);
+            padding-left: 5px;
+        }
+        
+        .footer-newsletter form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-newsletter input {
+            padding: 12px 15px;
+            background: #333;
+            color: var(--blanco);
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        
+        .footer-newsletter button {
+            padding: 12px;
+            background: var(--rosa);
+            color: var(--blanco);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .footer-newsletter button:hover {
+            background: var(--rosa-oscuro);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            header, header.sticky {
+                padding: 15px 50px;
+            }
+            
+            section {
+                padding: 100px 50px;
+            }
+            
+            footer {
+                padding: 50px 50px 20px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            header, header.sticky {
+                padding: 15px 30px;
+            }
+            
+            .hamburger {
+                display: block;
+                z-index: 101;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                gap: 0;
+                flex-direction: column;
+                background-color: var(--blanco);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                z-index: 100;
+                padding-top: 80px;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 25px 0;
+            }
+            
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-text {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .hero-content h2 {
+                font-size: 3em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header, header.sticky {
+                padding: 10px 20px;
+            }
+            
+            section {
+                padding: 80px 20px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5em;
+            }
+            
+            .hero-content p {
+                font-size: 1em;
+            }
+            
+            .section-title {
+                font-size: 1.8em;
+            }
+            
+            footer {
+                padding: 40px 20px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h2 {
+                font-size: 2em;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+                font-size: 1em;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">Marley</a>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#inicio">Home</a></li>
+            <li class="nav-item"><a href="#nosotros">Nosotros</a></li>
+            <li class="nav-item"><a href="#servicios">Servicios</a></li>
+            <li class="nav-item"><a href="#promociones">Promociones</a></li>
+            <li class="nav-item"><a href="#destacados">Destacados</a></li>
+            <li class="nav-item"><a href="#galeria">Galería</a></li>
+            <li class="nav-item"><a href="#testimonios">Testimonios</a></li>
+            <li class="nav-item"><a href="#contacto">Contacto</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h2>Marley Tratamientos Capilares</h2>
+            <p>Recupera tu confianza y luce un cabello espectacular con nuestros tratamientos especializados</p>
+            <a href="#contacto" class="btn">Reserva tu cita</a>
+        </div>
+    </section>
+
+    <!-- Nosotros Section -->
+    <section class="about" id="nosotros">
+        <h2 class="section-title">Sobre Nosotros</h2>
+        <div class="about-content">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1087&q=80" alt="Salón Marley">
+            </div>
+            <div class="about-text">
+                <h3>Expertos en cuidado capilar</h3>
+                <p>En Marley nos dedicamos a devolverle la vida y salud a tu cabello. Con más de 10 años de experiencia, nuestro equipo de especialistas ha desarrollado tratamientos únicos que se adaptan a las necesidades específicas de cada cliente.</p>
+                <p>Utilizamos productos de la más alta calidad y tecnología de punta para garantizar resultados visibles desde la primera sesión. Nuestra misión es ayudarte a recuperar la confianza en tu cabello mediante soluciones personalizadas.</p>
+                <a href="#servicios" class="btn">Nuestros servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Section -->
+    <section class="services" id="servicios">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="services-container">
+            <div class="service-box">
+                <i class="fas fa-spa"></i>
+                <h3>Hidratación Profunda</h3>
+                <p>Tratamiento intensivo que nutre y restaura el cabello dañado, devolviéndole su suavidad y brillo natural.</p>
+            </div>
+            <div class="service-box">
+                <i class="fas fa-magic"></i>
+                <h3>Keratin Treatment</h3>
+                <p>Elimina el frizz y alisa naturalmente tu cabello por hasta 5 meses, sin dañarlo con químicos agresivos.</p>
+            </div>
+            <div class="service-box">
+                <i class="fas fa-seedling"></i>
+                <h3>Botox Capilar</h3>
+                <p>Rellena las fibras capilares desde el interior, reparando el cabello maltratado y devolviendo su elasticidad.</p>
+            </div>
+            <div class="service-box">
+                <i class="fas fa-fire"></i>
+                <h3>Brasilian Blowout</h3>
+                <p>Tratamiento brasileño que sella la cutícula del cabello, protegiéndolo de la humedad y el calor.</p>
+            </div>
+            <div class="service-box">
+                <i class="fas fa-tint"></i>
+                <h3>Coloración Premium</h3>
+                <p>Coloración con productos libres de amoníaco y componentes dañinos que protegen la fibra capilar.</p>
+            </div>
+            <div class="service-box">
+                <i class="fas fa-crown"></i>
+                <h3>Tratamiento Reconstructor</h3>
+                <p>Reparación intensiva para cabello extremadamente dañado por procesos químicos o calor excesivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promociones Section -->
+    <section class="promotions" id="promociones">
+        <h2 class="section-title">Promociones Especiales</h2>
+        <div class="promo-container">
+            <div class="promo-card">
+                <div class="promo-badge">20% OFF</div>
+                <div class="promo-img">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Promoción 1">
+                </div>
+                <div class="promo-content">
+                    <h3>Primera Visita</h3>
+                    <p>Obtén un 20% de descuento en tu primer tratamiento con nosotros.</p>
+                    <p class="promo-price">$80.000 <span>$100.000</span></p>
+                </div>
+            </div>
+            <div class="promo-card">
+                <div class="promo-badge">30% OFF</div>
+                <div class="promo-img">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Promoción 2">
+                </div>
+                <div class="promo-content">
+                    <h3>Combo Completo</h3>
+                    <p>Hidratación + Keratin Treatment + Corte de estilo. Precio especial por tiempo limitado.</p>
+                    <p class="promo-price">$150.000 <span>$210.000</span></p>
+                </div>
+            </div>
+            <div class="promo-card">
+                <div class="promo-badge">25% OFF</div>
+                <div class="promo-img">
+                    <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80" alt="Promoción 3">
+                </div>
+                <div class="promo-content">
+                    <h3>Día de Spa Capilar</h3>
+                    <p>Lavado terapéutico, hidratación profunda, masaje capilar y secado profesional.</p>
+                    <p class="promo-price">$75.000 <span>$100.000</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destacados Section -->
+    <section class="featured" id="destacados">
+        <h2 class="section-title">Tratamientos Destacados</h2>
+        <div class="featured-container">
+            <div class="featured-card">
+                <div class="featured-img">
+                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Tratamiento 1">
+                </div>
+                <div class="featured-content">
+                    <h3>Keratin Gold</h3>
+                    <p>Nuestro tratamiento premium con oro líquido para un brillo incomparable.</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <div class="featured-img">
+                    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Tratamiento 2">
+                </div>
+                <div class="featured-content">
+                    <h3>Botox con Colágeno</h3>
+                    <p>Reparación intensiva con colágeno para cabello quebradizo y sin vida.</p>
+                </div>
+            </div>
+            <div class="featured-card">
+                <div class="featured-img">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Tratamiento 3">
+                </div>
+                <div class="featured-content">
+                    <h3>Limpieza Detox</h3>
+                    <p>Elimina residuos de químicos y contaminantes para un cabello más saludable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería Section -->
+    <section class="gallery" id="galeria">
+        <h2 class="section-title">Galería de Resultados</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=689&q=80" alt="Galería 1" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Galería 2" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1598706640393-cc5135b85974?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Galería 3" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galería 4" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galería 5" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galería 6" class="gallery-img">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section class="testimonials" id="testimonios">
+        <h2 class="section-title">Lo que Dicen Nuestros Clientes</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Cliente 1">
+                    </div>
+                    <div class="testimonial-info">
+                        <h3>María González</h3>
+                        <span>Cliente por 2 años</span>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>"Después de años de maltratar mi cabello con plancha y tintes, Marley lo devolvió a la vida. El tratamiento de botox capilar fue milagroso. ¡No puedo estar más feliz!"</p>
+                </div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Cliente 2">
+                    </div>
+                    <div class="testimonial-info">
+                        <h3>Carlos Rodríguez</h3>
+                        <span>Cliente por 1 año</span>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>"Siempre tuve problemas con el frizz, especialmente en temporada de lluvias. El keratin treatment de Marley cambió por completo mi rutina. Ahora me levanto y mi cabello luce perfecto."</p>
+                </div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Cliente 3">
+                    </div>
+                    <div class="testimonial-info">
+                        <h3>Ana Martínez</h3>
+                        <span>Nueva cliente</span>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>"Vine por la promoción de primera visita y me encantó el servicio. No solo el tratamiento fue excelente, sino que me enseñaron cómo cuidar mi cabello en casa. ¡Volveré cada mes!"</p>
+                </div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section class="contact" id="contacto">
+        <h2 class="section-title">Contáctanos</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-info-box">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Dirección</h3>
+                        <p>Calle 123 #45-67, Bogotá, Colombia</p>
+                    </div>
+                </div>
+                <div class="contact-info-box">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Teléfono</h3>
+                        <p>+57 1 234 5678</p>
+                        <p>+57 300 123 4567</p>
+                    </div>
+                </div>
+                <div class="contact-info-box">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>info@marley.com</p>
+                        <p>citas@marley.com</p>
+                    </div>
+                </div>
+                <div class="contact-info-box">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Horario</h3>
+                        <p>Lunes a Sábado: 9:00 AM - 7:00 PM</p>
+                        <p>Domingos y Festivos: Cerrado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Envíanos un mensaje</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Teléfono">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Tu mensaje" required></textarea>
+                    </div>
+                    <button type="submit" class="form-btn">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>Marley</h3>
+                <p>Especialistas en tratamientos capilares avanzados. Recupera la salud y belleza de tu cabello con nosotros.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" ><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/?lang=es" target="_blank"><i class=" fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-box">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#promociones">Promociones</a></li>
+                    <li><a href="#destacados">Destacados</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h3>Servicios Populares</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Keratin Treatment</a></li>
+                    <li><a href="#">Botox Capilar</a></li>
+                    <li><a href="#">Hidratación Profunda</a></li>
+                    <li><a href="#">Brasilian Blowout</a></li>
+                    <li><a href="#">Coloración Premium</a></li>
+                    <li><a href="#">Reconstrucción Capilar</a></li>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h3>Newsletter</h3>
+                <p>Suscríbete para recibir promociones exclusivas y tips para el cuidado de tu cabello.</p>
+                <form class="footer-newsletter">
+                    <input type="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Marley Tratamientos Capilares. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header fijo al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+        
+        // Menú hamburguesa
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-item a').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+        
+        // Animación de elementos al hacer scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.service-box, .promo-card, .featured-card, .testimonial-card, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
